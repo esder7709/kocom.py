@@ -643,7 +643,7 @@ def publish_discovery(dev, sub=''):
             payload = {
                 'name': 'Kocom Livingroom Light{}'.format(num),
                 'cmd_t': 'kocom/livingroom/light/{}/command'.format(num),
-                'stat_t': 'kocom/ivingroom/light/state',
+                'stat_t': 'kocom/lvingroom/light/state',
                 'stat_val_tpl': '{{ value_json.light_' + str(num) + ' }}',
                 'pl_on': 'on',
                 'pl_off': 'off',
