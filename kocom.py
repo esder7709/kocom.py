@@ -433,14 +433,12 @@ def mqtt_on_message(mqttc, obj, msg):
         light_id = int(topic_d[3])
 
         # turn on/off multiple lights at once : e.g) kocom/livingroom/light/12/command
-        if light_id > 0:
-            while light_id > 0:
-                n = light_id % 10
-                value = value[:n*2-2] + onoff_hex + value[n*2:]
-                send_wait_response(dest=dev_id, value=value, log='light')
-                light_id = int(light_id/10)
-        else:
-            send_wait_response(dest=dev_id, value=value, log='light')
+        while light_id > 0:
+            n = light_id % 10
+            value = value[:n*2-2]+ onoff_hex + value[n*2:]
+            light_id = int(light_id/10)
+
+        send_wait_response(dest=dev_id, value=value, log='light')
 
     # gas off : kocom/livingroom/gas/command
     elif 'gas' in topic_d:
