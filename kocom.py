@@ -24,7 +24,7 @@ import configparser
 
 
 # define -------------------------------
-SW_VERSION = '2024.03.12'
+SW_VERSION = '2024.03.20'
 CONFIG_FILE = 'kocom.conf'
 BUF_SIZE = 100
 
@@ -51,8 +51,7 @@ room_h_dic = {'livingroom':'00', 'myhome':'00', 'bedroom':'01', 'room1':'02', 'r
 # mqtt functions ----------------------------
 
 def init_mqttc():
-  # mqttc = mqtt.Client()
-    mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
+    mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
     mqttc.on_message = mqtt_on_message
     mqttc.on_subscribe = mqtt_on_subscribe
     mqttc.on_connect = mqtt_on_connect
@@ -303,7 +302,6 @@ def light_parse(value):
 def fan_parse(value):
     preset_dic = {'40':'Low', '80':'Medium', 'c0':'High'}
     state = 'off' if value[:2] == '00' else 'on'
-#    state = 'off' if value[:2] == '00' else 'on'
     preset = 'Off' if state == 'off' else preset_dic.get(value[4:6])
     return { 'state': state, 'preset': preset}
 
